@@ -1,13 +1,15 @@
-class Availability
-  attr_reader :name, :date_slot, :available
+require_relative 'availability_status'
 
-  def initialize(name, date_slot, available)
+class Availability
+  attr_reader :name, :date_slot, :status
+
+  def initialize(name, date_slot, status)
     @name = name
     @date_slot = date_slot
-    @available = available
+    @status = AvailabilityStatus.new(status)
   end
 
   def to_s
-    "#{@name} - #{@date_slot} : #{@available}"
+    "#{@name} - #{@date_slot} : #{@status}"
   end
 end

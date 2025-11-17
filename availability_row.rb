@@ -13,10 +13,7 @@ class AvailabilityRow
   def count
     counts = 0
     @availabilities.each do |availability|
-      case availability.available
-      when '⚪︎'
-        counts += 1
-      end
+      counts += availability.status.score
     end
     counts
   end
