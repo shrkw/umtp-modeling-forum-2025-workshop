@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'availability_row'
 
 class AvailabilityTable
@@ -10,12 +12,8 @@ class AvailabilityTable
   def add(participant_name, available_slots)
     # TODO: available_slotsが親クラスの日付にあっているかを確認したい
     available_slots.each do |date, availability|
-      if @availability_rows[date]
-        @availability_rows[date].add!(Availability.new(participant_name, date, availability))
-      else
-        @availability_rows[date] = AvailabilityRow.new
-        @availability_rows[date].add!(Availability.new(participant_name, date, availability))
-      end
+      @availability_rows[date] = AvailabilityRow.new unless @availability_rows[date]
+      @availability_rows[date].add!(Availability.new(participant_name, date, availability))
     end
   end
 

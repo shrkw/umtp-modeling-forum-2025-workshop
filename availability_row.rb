@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'availability'
 
 # 日付行での出欠登録群を保持するクラス

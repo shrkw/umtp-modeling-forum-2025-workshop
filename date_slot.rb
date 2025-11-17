@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'date'
 
 class DateSlot
@@ -8,6 +10,6 @@ class DateSlot
   end
 
   def to_s
-    @date.strftime("%Y-%m-%d")
+    @date.strftime('%Y-%m-%d')
   end
 end

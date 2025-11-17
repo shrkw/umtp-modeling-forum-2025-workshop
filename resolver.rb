@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 # 日程調整を行うブートストラップクラス
 class Resolver
   attr_reader :slots, :availability_table, :minimum_score_threshold
 
-  READJUSTMENT = '再調整'.freeze
+  READJUSTMENT = '再調整'
 
   def initialize(minimum_score_threshold: nil)
     @slots = []
@@ -22,6 +24,7 @@ class Resolver
   def finalize_date
     result = @availability_table.finalize_result
     return READJUSTMENT if needs_readjustment?(result[:score])
+
     result[:date]
   end
 
@@ -30,6 +33,7 @@ class Resolver
   def needs_readjustment?(score)
     return false if @minimum_score_threshold.nil?
     return true if score.nil?
+
     score <= @minimum_score_threshold
   end
 end
