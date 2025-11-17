@@ -18,8 +18,8 @@ class AvailabilityTable
     end
   end
 
+  # 各日付行で、xを0、⚪︎を1として集計し、最も多くの参加者が参加可能な日付を特定する
   def finalize_date
-    # 各日付行で、xを0、⚪︎を1として集計し、最も多くの参加者が参加可能な日付を特定するロジックをここに実装できます
     best_date = nil
     max_available_count = -1
 
