@@ -1,9 +1,13 @@
+# 日程調整を行うブートストラップクラス
 class Resolver
-  attr_reader :slots, :availability_table
+  attr_reader :slots, :availability_table, :minimum_score_threshold
 
-  def initialize
+  READJUSTMENT = '再調整'.freeze
+
+  def initialize(minimum_score_threshold: nil)
     @slots = []
     @availability_table = AvailabilityTable.new
+    @minimum_score_threshold = minimum_score_threshold
   end
 
   def add_slots(string_date_slots)
@@ -16,10 +20,13 @@ class Resolver
     @availability_table.add(participant_name, available_slots)
   end
 
-  # 候補日を出す
-  def 最適な候補日を出す
-    @availability_table.finalize_date
+  def finalize_date
+    result = @availability_table.finalize_result
+    return READJUSTMENT if needs_readjustment?(result[:score])
+    result[:date]
   end
+
+  alias 最適な候補日を出す finalize_date
 
   def to_s
     <<~EOS
@@ -29,5 +36,13 @@ class Resolver
     Availability:
     #{@availability_table.to_s}
     EOS
+  end
+
+  private
+
+  def needs_readjustment?(score)
+    return false if @minimum_score_threshold.nil?
+    return true if score.nil?
+    score <= @minimum_score_threshold
   end
 end

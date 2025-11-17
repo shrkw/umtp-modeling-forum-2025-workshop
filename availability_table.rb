@@ -19,20 +19,24 @@ class AvailabilityTable
     end
   end
 
-  # 各日付行で、xを0、⚪︎を1として集計し、最も多くの参加者が参加可能な日付を特定する
-  def finalize_date
+  # 各日付行での合計スコアと候補日を返す
+  def finalize_result
     best_date = nil
-    max_available_count = -1
+    max_available_count = nil
 
     @availability_rows.each do |date, collection|
       available_count = collection.count
-      if available_count > max_available_count
+      if max_available_count.nil? || available_count > max_available_count
         max_available_count = available_count
         best_date = date
       end
     end
 
-    best_date
+    { date: best_date, score: max_available_count }
+  end
+
+  def finalize_date
+    finalize_result[:date]
   end
 
   def to_s
