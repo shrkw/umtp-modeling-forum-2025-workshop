@@ -16,4 +16,8 @@ class AvailabilityStatus
   def score
     SCORE_MAP[@value] || 0
   end
+
+  def to_s
+    @value
+  end
 end

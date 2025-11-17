@@ -25,18 +25,6 @@ class Resolver
     result[:date]
   end
 
-  alias 最適な候補日を出す finalize_date
-
-  def to_s
-    <<~EOS
-    Slots:
-    #{@slots.map(&:to_s).join(", ")}
-
-    Availability:
-    #{@availability_table.to_s}
-    EOS
-  end
-
   private
 
   def needs_readjustment?(score)

@@ -12,7 +12,7 @@ def run_test_case(name, slots:, availabilities:, expected:, minimum_score_thresh
     resolver.register_availability(participant, availability_slots)
   end
 
-  actual = resolver.最適な候補日を出す
+  actual = resolver.finalize_date
 
   if actual == expected
     puts "[PASS] #{name}: #{actual}"
