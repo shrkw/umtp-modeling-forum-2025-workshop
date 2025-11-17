@@ -1,17 +1,19 @@
+require_relative 'availability_row'
+
 class AvailabilityTable
-  # availability_collections: { '2024-07-01' => AvailabilityCollection, '2024-07-02' => AvailabilityCollection, ... }
+  # availability_rows: { '2024-07-01' => AvailabilityRow, '2024-07-02' => AvailabilityRow, ... }
   def initialize
-    @availability_collections = {}
+    @availability_rows = {}
   end
 
   # participant_name: 'Alice', available_slots: [['2024-07-01', '⚪︎'], ['2024-07-02', '⚪︎'], ['2024-07-03', 'x']]
   def add(participant_name, available_slots)
     available_slots.each do |date, availability|
-      if @availability_collections[date]
-      @availability_collections[date].add!(Availability.new(participant_name, date, availability))
+      if @availability_rows[date]
+        @availability_rows[date].add!(Availability.new(participant_name, date, availability))
       else
-      @availability_collections[date] = AvailabilityCollection.new
-      @availability_collections[date].add!(Availability.new(participant_name, date, availability))
+        @availability_rows[date] = AvailabilityRow.new
+        @availability_rows[date].add!(Availability.new(participant_name, date, availability))
       end
     end
   end
@@ -21,11 +23,11 @@ class AvailabilityTable
     best_date = nil
     max_available_count = -1
 
-    @availability_collections.each do |date, collection|
+    @availability_rows.each do |date, collection|
       available_count = collection.count
       if available_count > max_available_count
-      max_available_count = available_count
-      best_date = date
+        max_available_count = available_count
+        best_date = date
       end
     end
 
@@ -33,6 +35,6 @@ class AvailabilityTable
   end
 
   def to_s
-    @availability_collections.map(&:to_s).join("\n")
+    @availability_rows.map(&:to_s).join("\n")
   end
 end

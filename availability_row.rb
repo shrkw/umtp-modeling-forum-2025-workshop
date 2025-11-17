@@ -1,7 +1,7 @@
 require_relative 'availability'
 
 # 日付行での出欠登録群を保持するクラス
-class AvailabilityCollection
+class AvailabilityRow
   def initialize(availabilities = [])
     @availabilities = availabilities
   end
@@ -26,7 +26,7 @@ class AvailabilityCollection
   end
 
   def run
-    ac = AvailabilityCollection.new
+    ac = AvailabilityRow.new
     ac.add!(Availability.new('Alice', '2024-07-01', '⚪︎'))
     ac.add!(Availability.new('Bob', '2024-07-01', 'x'))
     ac.add!(Availability.new('Charlie', '2024-07-01', 'x'))

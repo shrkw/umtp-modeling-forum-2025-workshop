@@ -1,6 +1,6 @@
 require_relative 'resolver'
 require_relative 'availability'
-require_relative 'availability_collection'
+require_relative 'availability_row'
 require_relative 'date_slot'
 require_relative 'availability_table'
 
