@@ -1,23 +1,17 @@
+# frozen_string_literal: true
+
+require_relative 'availability_status_symbols'
+
 class AvailabilityStatus
-  AVAILABLE = '⚪︎'
-  UNAVAILABLE = 'x'
-  HALF_AVAILABLE = '△'
-
-  SCORE_MAP = {
-    AVAILABLE => 1,
-    UNAVAILABLE => 0,
-    HALF_AVAILABLE => 0.5
-  }
-
-  def initialize(value)
-    @value = value
+  def initialize(status_symbol)
+    @status_symbol = AvailabilityStatusSymbols.value_of(status_symbol)
   end
 
   def score
-    SCORE_MAP[@value] || 0
+    @status_symbol.score
   end
 
   def to_s
-    @value
+    @status_symbol.to_s
   end
 end
