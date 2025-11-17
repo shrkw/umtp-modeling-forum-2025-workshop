@@ -11,11 +11,7 @@ class AvailabilityRow
   end
 
   def count
-    counts = 0
-    @availabilities.each do |availability|
-      counts += availability.status.score
-    end
-    counts
+    @availabilities.sum { |availability| availability.status.score }
   end
 
   def to_s

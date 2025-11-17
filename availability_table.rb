@@ -24,8 +24,8 @@ class AvailabilityTable
     best_date = nil
     max_available_count = nil
 
-    @availability_rows.each do |date, collection|
-      available_count = collection.count
+    @availability_rows.each do |date, row|
+      available_count = row.count
       if max_available_count.nil? || available_count > max_available_count
         max_available_count = available_count
         best_date = date
