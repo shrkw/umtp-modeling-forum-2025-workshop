@@ -16,7 +16,8 @@ class Resolver
     @availability_table.add(participant_name, available_slots)
   end
 
-  def finalize_date
+  # 候補日を出す
+  def 最適な候補日を出す
     @availability_table.finalize_date
   end
 

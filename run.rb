@@ -12,7 +12,7 @@ def run_test_case(name, slots:, availabilities:, expected:)
     resolver.register_availability(participant, availability_slots)
   end
 
-  actual = resolver.finalize_date
+  actual = resolver.最適な候補日を出す
 
   if actual == expected
     puts "[PASS] #{name}: #{actual}"
@@ -22,7 +22,7 @@ def run_test_case(name, slots:, availabilities:, expected:)
 end
 
 run_test_case(
-  'Simple majority',
+  '単純多数決',
   slots: ['2024-07-01', '2024-07-02', '2024-07-03'],
   availabilities: {
     'Alice' => [['2024-07-01', '⚪︎'], ['2024-07-02', '⚪︎'], ['2024-07-03', 'x']],
@@ -34,7 +34,18 @@ run_test_case(
 )
 
 run_test_case(
-  'Everyone picks first day',
+  '△のスコアが反映される',
+  slots: ['2024-10-01', '2024-10-02'],
+  availabilities: {
+    'Alice' => [['2024-10-01', '⚪︎'], ['2024-10-02', '⚪︎']],
+    'Bob' => [['2024-10-01', 'x'], ['2024-10-02', '△']],
+    'Charlie' => [['2024-10-01', 'x'], ['2024-10-02', '△']]
+  },
+  expected: '2024-10-02'
+)
+
+run_test_case(
+  '全員が初日を選択',
   slots: ['2024-08-01', '2024-08-02', '2024-08-03'],
   availabilities: {
     'Alice' => [['2024-08-01', '⚪︎'], ['2024-08-02', 'x'], ['2024-08-03', 'x']],
@@ -45,7 +56,7 @@ run_test_case(
 )
 
 run_test_case(
-  'No availability recorded',
+  '出欠が未登録',
   slots: ['2024-09-01', '2024-09-02'],
   availabilities: {},
   expected: nil
