@@ -12,7 +12,6 @@ class Resolver
 
   def add_slots(string_date_slots)
     @slots = string_date_slots.map { |slot_string| DateSlot.new(slot_string) }
-    self
   end
 
   # input: 'Alice', ['2024-07-01', '⚪︎'], ['2024-07-02', '⚪︎'], ['2024-07-03', 'x']
