@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'resolver'
-require_relative 'availability'
-require_relative 'availability_row'
-require_relative 'date_slot'
-require_relative 'availability_table'
+require_relative 'app/resolver'
+require_relative 'app/availability_table'
+require_relative 'app/date_slot'
+require_relative 'app/availability'
+require_relative 'app/availability_row'
 
 def run_test_case(name, slots:, availabilities:, expected:, minimum_score_threshold: nil)
   resolver = Resolver.new(minimum_score_threshold: minimum_score_threshold)
