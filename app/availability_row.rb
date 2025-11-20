@@ -13,7 +13,7 @@ class AvailabilityRow
   end
 
   def count_score
-    @availabilities.sum { |availability| availability.status.score }
+    @availabilities.sum(&:score)
   end
 
   def to_s

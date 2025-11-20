@@ -11,6 +11,10 @@ class Availability
     @status = AvailabilityStatus.new(status)
   end
 
+  def score
+    @status.score
+  end
+
   def to_s
     "#{@name} - #{@date_slot} : #{@status}"
   end
