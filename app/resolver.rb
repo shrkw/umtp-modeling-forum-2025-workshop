@@ -16,9 +16,9 @@ class Resolver
     @slots = string_date_slots.map { |slot_string| DateSlot.new(slot_string) }
   end
 
-  # input: 'Alice', ['2024-07-01', '⚪︎'], ['2024-07-02', '⚪︎'], ['2024-07-03', 'x']
-  def register_availability(participant_name, available_slots)
-    @availability_table.add(participant_name, available_slots)
+  # input: Participant or String name, ['2024-07-01', '⚪︎'], ['2024-07-02', '⚪︎'], ['2024-07-03', 'x']
+  def register_availability(participant, available_slots)
+    @availability_table.add(participant, available_slots)
   end
 
   def finalize_date

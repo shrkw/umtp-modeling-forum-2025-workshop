@@ -8,12 +8,12 @@ class AvailabilityTable
     @availability_rows = {}
   end
 
-  # participant_name: 'Alice', available_slots: [['2024-07-01', '⚪︎'], ['2024-07-02', '⚪︎'], ['2024-07-03', 'x']]
-  def add(participant_name, available_slots)
+  # participant: Participant or String name, available_slots: [['2024-07-01', '⚪︎'], ['2024-07-02', '⚪︎'], ['2024-07-03', 'x']]
+  def add(participant, available_slots)
     # TODO: available_slotsが親クラスの日付にあっているかを確認したい
     available_slots.each do |date, availability|
       @availability_rows[date] = AvailabilityRow.new unless @availability_rows[date]
-      @availability_rows[date].add!(Availability.new(participant_name, date, availability))
+      @availability_rows[date].add!(Availability.new(participant, date, availability))
     end
   end
 
