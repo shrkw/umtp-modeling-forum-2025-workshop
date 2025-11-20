@@ -23,7 +23,7 @@ class AvailabilityTable
     max_available_count = nil
 
     @availability_rows.each do |date, row|
-      available_count = row.count
+      available_count = row.count_score
       if max_available_count.nil? || available_count > max_available_count
         max_available_count = available_count
         best_date = date

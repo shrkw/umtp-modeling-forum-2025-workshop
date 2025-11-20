@@ -11,6 +11,6 @@ class AvailabilityRowTest < Minitest::Test
     row.add!(Availability.new('Carol', '2024-07-01', 'u_u'))
 
     assert_in_delta 0.5, AvailabilityStatus.new('△').score
-    assert_in_delta 0.5, row.count
+    assert_in_delta 0.5, row.count_score
   end
 end
