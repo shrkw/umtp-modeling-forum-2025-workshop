@@ -30,9 +30,10 @@ resolver.finalize_date
 
 ## テスト実行
 
-`run.rb` は簡易テストランナーです。代表的なケースと閾値判定を確認できます。
+依存関係を入れて `bundle exec rake test` を実行すると、`test/**/*_test.rb` にある Minitest が一括で走ります。
 
 ```bash
-ruby run.rb
-# => [PASS] ... といった結果が表示されます
+bundle install
+bundle exec rake test
+# => 各テストファイルが実行され、統計が表示されます
 ```

@@ -19,12 +19,4 @@ class AvailabilityRow
   def to_s
     @availabilities.map(&:to_s).join("\n")
   end
-
-  def run
-    ac = AvailabilityRow.new
-    ac.add!(Availability.new('Alice', '2024-07-01', '⚪︎'))
-    ac.add!(Availability.new('Bob', '2024-07-01', 'x'))
-    ac.add!(Availability.new('Charlie', '2024-07-01', 'x'))
-    ac.count
-  end
 end
