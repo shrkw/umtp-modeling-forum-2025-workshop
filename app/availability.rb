@@ -12,7 +12,10 @@ class Availability
   end
 
   def score
-    @status.score
+    base = @status.score
+    return base * 2 if @name == 'Alice'
+
+    base
   end
 
   def to_s

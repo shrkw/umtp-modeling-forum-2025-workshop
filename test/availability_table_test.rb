@@ -12,7 +12,7 @@ class AvailabilityTableTest < Minitest::Test
     result = table.finalize_result
 
     assert_equal '2024-07-01', result[:date]
-    assert_in_delta 1.5, result[:score]
+    assert_in_delta 2.5, result[:score]
   end
 
   def test_finalize_result_handles_no_data
