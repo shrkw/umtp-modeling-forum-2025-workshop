@@ -8,7 +8,8 @@ class ParticipantTest < Minitest::Test
     participant = Participant.new('Bob')
 
     assert_equal 'Bob', participant.name
-    assert_equal false, participant.required
+    assert_equal false, participant.required?
+    assert_equal Role.optional, participant.role
     assert_equal 1, participant.score_weight
   end
 
@@ -16,7 +17,8 @@ class ParticipantTest < Minitest::Test
     participant = Participant.new('Alice', required: true)
 
     assert_equal 'Alice', participant.name
-    assert_equal true, participant.required
+    assert_equal true, participant.required?
+    assert_equal Role.required, participant.role
     assert_equal 2, participant.score_weight
   end
 end
