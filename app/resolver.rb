@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'date_slot_collection'
+
 # 日程調整を行うブートストラップクラス
 class Resolver
   attr_reader :slots, :availability_table, :minimum_score_threshold
@@ -7,13 +9,12 @@ class Resolver
   READJUSTMENT = '再調整'
 
   def initialize(minimum_score_threshold: nil)
-    @slots = []
     @availability_table = AvailabilityTable.new
     @minimum_score_threshold = minimum_score_threshold
   end
 
   def add_slots(string_date_slots)
-    @slots = string_date_slots.map { |slot_string| DateSlot.new(slot_string) }
+    @availability_table.allowed_date_collection = DateSlotCollection.new(string_date_slots)
   end
 
   # input: Participant or String name, ['2024-07-01', '⚪︎'], ['2024-07-02', '⚪︎'], ['2024-07-03', 'x']

@@ -2,10 +2,11 @@
 
 require_relative 'test_helper'
 require 'availability_table'
+require 'date_slot_collection'
 
 class AvailabilityTableTest < Minitest::Test
   def test_finalize_result_returns_best_date_and_score
-    table = AvailabilityTable.new
+    table = AvailabilityTable.new(allowed_date_collection: DateSlotCollection.new(%w[2024-07-01 2024-07-02]))
     table.add(Participant.new('Alice', required: true), [['2024-07-01', '⚪︎'], ['2024-07-02', 'x']])
     table.add(Participant.new('Bob'), [['2024-07-01', '△'], ['2024-07-02', '⚪︎']])
 
@@ -17,6 +18,13 @@ class AvailabilityTableTest < Minitest::Test
 
   def test_finalize_result_handles_no_data
     table = AvailabilityTable.new
+
+    assert_equal({ date: nil, score: nil }, table.finalize_result)
+  end
+
+  def test_ignores_slots_not_in_allowed_dates
+    table = AvailabilityTable.new(allowed_date_collection: DateSlotCollection.new(['2024-07-01']))
+    table.add(Participant.new('Alice'), [['2024-07-02', '⚪︎']])
 
     assert_equal({ date: nil, score: nil }, table.finalize_result)
   end

@@ -8,7 +8,8 @@ class ResolverTest < Minitest::Test
   def test_finalize_date_returns_best_slot
     resolver = Resolver.new
     resolver.add_slots(%w[2024-07-01 2024-07-02])
-    resolver.register_availability(Participant.new('Alice', required: true), [['2024-07-01', '⚪︎'], ['2024-07-02', 'x']])
+    resolver.register_availability(Participant.new('Alice', required: true),
+                                   [['2024-07-01', '⚪︎'], ['2024-07-02', 'x']])
     resolver.register_availability(Participant.new('Bob'), [['2024-07-01', '△'], ['2024-07-02', '⚪︎']])
 
     assert_equal '2024-07-01', resolver.finalize_date
