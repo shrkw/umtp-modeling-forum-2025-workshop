@@ -19,18 +19,9 @@ class AvailabilityTable
 
   # 各日付行での合計スコアと候補日を返す
   def finalize_result
-    best_date = nil
-    max_available_count = nil
-
-    @availability_rows.each do |date, row|
-      available_count = row.count_score
-      if max_available_count.nil? || available_count > max_available_count
-        max_available_count = available_count
-        best_date = date
-      end
+    @availability_rows.reduce({ date: nil, score: nil }) do |best, (date, row)|
+      best[:score].nil? || row.count_score > best[:score] ? { date: date, score: row.count_score } : best
     end
-
-    { date: best_date, score: max_available_count }
   end
 
   def finalize_date
