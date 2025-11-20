@@ -9,6 +9,7 @@ class ParticipantTest < Minitest::Test
 
     assert_equal 'Bob', participant.name
     assert_equal false, participant.required
+    assert_equal 1, participant.score_weight
   end
 
   def test_can_mark_participant_as_required
@@ -16,5 +17,6 @@ class ParticipantTest < Minitest::Test
 
     assert_equal 'Alice', participant.name
     assert_equal true, participant.required
+    assert_equal 2, participant.score_weight
   end
 end

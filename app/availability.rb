@@ -18,9 +18,7 @@ class Availability
 
   def score
     base = @status.score
-    return base * 2 if @participant.required
-
-    base
+    base * @participant.score_weight
   end
 
   def to_s

@@ -8,4 +8,8 @@ class Participant
     @name = name
     @required = required
   end
+
+  def score_weight
+    required ? 2 : 1
+  end
 end
