@@ -6,7 +6,7 @@ require 'participant'
 
 class AvailabilityTest < Minitest::Test
   def test_initializes_with_attributes_and_status_wrapper
-    availability = Availability.new(Participant.new('Alice', role: Role.required), '2024-07-01', '⚪︎')
+    availability = Availability.new(Participant.new('Alice', role: Roles::Required.new), '2024-07-01', '⚪︎')
 
     assert_equal 'Alice', availability.name
     assert_equal '2024-07-01', availability.date_slot
@@ -15,13 +15,13 @@ class AvailabilityTest < Minitest::Test
   end
 
   def test_score_is_not_doubled_for_other_names
-    availability = Availability.new(Participant.new('Bob', role: Role.optional), '2024-07-01', '⚪︎')
+    availability = Availability.new(Participant.new('Bob', role: Roles::Optional.new), '2024-07-01', '⚪︎')
 
     assert_equal 1, availability.score
   end
 
   def test_accepts_participant_instance
-    participant = Participant.new('Dana', role: Role.required)
+    participant = Participant.new('Dana', role: Roles::Required.new)
     availability = Availability.new(participant, '2024-07-01', 'x')
 
     assert_same participant, availability.participant

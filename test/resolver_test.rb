@@ -8,9 +8,9 @@ class ResolverTest < Minitest::Test
   def test_finalize_date_returns_best_slot
     resolver = Resolver.new
     resolver.add_slots(%w[2024-07-01 2024-07-02])
-    resolver.register_availability(Participant.new('Alice', role: Role.required),
+    resolver.register_availability(Participant.new('Alice', role: Roles::Required.new),
                                    [['2024-07-01', '⚪︎'], ['2024-07-02', 'x']])
-    resolver.register_availability(Participant.new('Bob', role: Role.optional),
+    resolver.register_availability(Participant.new('Bob', role: Roles::Optional.new),
                                    [['2024-07-01', '△'], ['2024-07-02', '⚪︎']])
 
     assert_equal '2024-07-01', resolver.finalize_date
@@ -19,7 +19,7 @@ class ResolverTest < Minitest::Test
   def test_finalize_date_requests_readjustment_when_below_threshold
     resolver = Resolver.new(minimum_score_threshold: 1)
     resolver.add_slots(['2024-07-01'])
-    resolver.register_availability(Participant.new('Alice', role: Role.optional), [%w[2024-07-01 x]])
+    resolver.register_availability(Participant.new('Alice', role: Roles::Optional.new), [%w[2024-07-01 x]])
 
     assert_equal Resolver::READJUSTMENT, resolver.finalize_date
   end
@@ -33,7 +33,7 @@ class ResolverTest < Minitest::Test
   def test_register_availability_accepts_participant_instance
     resolver = Resolver.new
     resolver.add_slots(['2024-07-01'])
-    participant = Participant.new('Alice', role: Role.required)
+    participant = Participant.new('Alice', role: Roles::Required.new)
     resolver.register_availability(participant, [['2024-07-01', '⚪︎']])
 
     assert_equal '2024-07-01', resolver.finalize_date

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'role'
-
 # イベント参加者を表すモデル
 class Participant
   attr_reader :name, :role
