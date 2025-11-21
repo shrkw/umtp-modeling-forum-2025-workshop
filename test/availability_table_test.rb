@@ -7,8 +7,8 @@ require 'date_slot_collection'
 class AvailabilityTableTest < Minitest::Test
   def test_finalize_result_returns_best_date_and_score
     table = AvailabilityTable.new(allowed_date_collection: DateSlotCollection.new(%w[2024-07-01 2024-07-02]))
-    table.add(Participant.new('Alice', required: true), [['2024-07-01', '⚪︎'], ['2024-07-02', 'x']])
-    table.add(Participant.new('Bob'), [['2024-07-01', '△'], ['2024-07-02', '⚪︎']])
+    table.add(Participant.new('Alice', role: Role.required), [['2024-07-01', '⚪︎'], ['2024-07-02', 'x']])
+    table.add(Participant.new('Bob', role: Role.optional), [['2024-07-01', '△'], ['2024-07-02', '⚪︎']])
 
     result = table.finalize_result
 
@@ -24,7 +24,7 @@ class AvailabilityTableTest < Minitest::Test
 
   def test_ignores_slots_not_in_allowed_dates
     table = AvailabilityTable.new(allowed_date_collection: DateSlotCollection.new(['2024-07-01']))
-    table.add(Participant.new('Alice'), [['2024-07-02', '⚪︎']])
+    table.add(Participant.new('Alice', role: Role.optional), [['2024-07-02', '⚪︎']])
 
     assert_equal({ date: nil, score: nil }, table.finalize_result)
   end

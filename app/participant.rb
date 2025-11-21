@@ -6,9 +6,9 @@ require_relative 'role'
 class Participant
   attr_reader :name, :role
 
-  def initialize(name, required: false)
+  def initialize(name, role:)
     @name = name
-    @role = determine_role(required)
+    @role = role
   end
 
   def required?
@@ -17,13 +17,5 @@ class Participant
 
   def score_weight
     @role.score_weight
-  end
-
-  private
-
-  def determine_role(required_flag)
-    return Role.required if required_flag == true
-
-    Role.optional
   end
 end

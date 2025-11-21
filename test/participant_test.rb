@@ -4,8 +4,8 @@ require_relative 'test_helper'
 require 'participant'
 
 class ParticipantTest < Minitest::Test
-  def test_defaults_to_optional_participant
-    participant = Participant.new('Bob')
+  def test_accepts_optional_participant
+    participant = Participant.new('Bob', role: Role.optional)
 
     assert_equal 'Bob', participant.name
     assert_equal false, participant.required?
@@ -14,7 +14,7 @@ class ParticipantTest < Minitest::Test
   end
 
   def test_can_mark_participant_as_required
-    participant = Participant.new('Alice', required: true)
+    participant = Participant.new('Alice', role: Role.required)
 
     assert_equal 'Alice', participant.name
     assert_equal true, participant.required?
